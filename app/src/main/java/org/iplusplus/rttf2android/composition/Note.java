@@ -106,7 +106,7 @@ public class Note {
 
         int msPerWholeNote = msPerMinute / tempo;
 
-        int duration = (msPerWholeNote * lengthNominator) / lengthDenominator;
+        int duration = 4 * (msPerWholeNote * lengthNominator) / lengthDenominator;
 
         Log.d("COMPOSITION", String.format("Playing note for %dms",duration));
 
@@ -137,11 +137,11 @@ public class Note {
         return Integer.valueOf(string);
     }
 
-    private static Pattern notePattern = Pattern.compile("^([0-9]{1,2})?([A-G]#?|P)([0-9])?(\\.?)$");
+    private static Pattern notePattern = Pattern.compile("^([0-9]{1,2})?([A-G]#?|P)(\\.?)([0-9])?$");
     private static int NOTE_PATTERN_DURATION_GROUP = 1;
     private static int NOTE_PATTERN_PITCH_GROUP = 2;
-    private static int NOTE_PATTERN_OCTAVE_GROUP = 3;
-    private static int NOTE_PATTERN_DOTTING_GROUP = 4;
+    private static int NOTE_PATTERN_OCTAVE_GROUP = 4;
+    private static int NOTE_PATTERN_DOTTING_GROUP = 3;
 
     private static int getOffsetFromString(String string) {
         return noteStrings.get(string);

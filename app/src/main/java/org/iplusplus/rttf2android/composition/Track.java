@@ -1,19 +1,21 @@
 package org.iplusplus.rttf2android.composition;
 
+import android.support.annotation.NonNull;
+
 import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Observable;
-import java.util.regex.Pattern;
 
 public class Track extends Observable {
-    public class Cursor {
+    public class Cursor extends Observable {
         private ListIterator<Note> iterator;
         private Note currentNote;
 
         public boolean forward() {
             if(iterator.hasNext()) {
                 currentNote = iterator.next();
+                this.notifyObservers();
                 return true;
             }
 
@@ -23,6 +25,7 @@ public class Track extends Observable {
         public boolean backward() {
             if(iterator.hasPrevious()) {
                 currentNote = iterator.previous();
+                this.notifyObservers();
                 return true;
             }
 
@@ -35,6 +38,7 @@ public class Track extends Observable {
 
         public void deleteCurrent() {
             iterator.remove();
+            this.notifyObservers();
             Track.this.notifyObservers();
         }
 
@@ -42,26 +46,13 @@ public class Track extends Observable {
             iterator.add(note);
             iterator.previous();
             currentNote = iterator.next();
+            this.notifyObservers();
             Track.this.notifyObservers();
         }
 
         private Cursor() {
             this.iterator = notes.listIterator();
         }
-    }
-
-    public static Track readFrom(String source) {
-        String[] notes = notesSeparatorPattern.split(source);
-
-        Track track = new Track();
-
-        for(String noteStr : notes) {
-            Note note = Note.fromString(noteStr, Note.defaultDefaults);
-
-            track.notes.add(note);
-        }
-
-        return track;
     }
 
     public Cursor openCursor() {
@@ -76,14 +67,26 @@ public class Track extends Observable {
     }
 
     public void setTempo(int tempo) {
-        this.tempo = tempo;
+        if (tempo != this.tempo) {
+            this.tempo = tempo;
+            this.notifyObservers();
+        }
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(@NonNull String name) {
+        if (!name.equals(this.name)) {
+            this.name = name;
+            this.notifyObservers();
+        }
     }
 
     /* Private */
 
-    static Pattern notesSeparatorPattern = Pattern.compile("[, \t]+");
-
     private List<Note> notes = new LinkedList<>();
     private int tempo = 20;
-
+    private String name;
 }

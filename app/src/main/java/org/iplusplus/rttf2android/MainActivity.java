@@ -9,7 +9,10 @@ import android.widget.Button;
 
 import org.iplusplus.rttf2android.composition.Player;
 import org.iplusplus.rttf2android.composition.Track;
+import org.iplusplus.rttf2android.composition.TrackStorage;
 import org.iplusplus.rttf2android.composition.samples.SampleCreators;
+
+import java.util.List;
 
 public class MainActivity extends ActionBarActivity {
 
@@ -52,17 +55,9 @@ public class MainActivity extends ActionBarActivity {
     }
 
     private void play() {
-        Track track = Track.readFrom("8d.,8d.,8d.,8a#4,16f,8d" +
-                ".,8a#4,16f,d.,32p,8a.,8a.,8a.,8a#,16f,8c#.,8a" +
-                "#4,16f,d.,32p,8d6.,8d,16d,8d6,32p,8c#6,16c6,1" +
-                "6b,16a#,8b,32p,16d#,8g#,32p,8g,16f#,16f,16e,8" +
-                "f,32p,16a#4,8c#,32p,8a#4,16c#,8f.,8d,16f,a.,3" +
-                "2p,8d6.,8d,16d,8d6,32p,8c#6,16c6,16b,16a#,8b," +
-                "32p,16d#,8g#,32p,8g,16f#,16f,16e,8f,32p,16a#4" +
-                ",8c#,32p,8a#4,16f,8d.,8a#4,16f,d."
-        );
+        List<Track> tracks = TrackStorage.getOne().getTracks(0, 10);
 
-//        Track track = Track.readFrom("1e,2d,4c,8b");
+        Track track = tracks.get(0);
 
         Player player = new Player(SampleCreators.SINE.get());
 
