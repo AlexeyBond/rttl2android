@@ -1,7 +1,10 @@
 <resources>
-    <string name="app_name">MyApplication</string>
+    <string name="app_name">TrackEditor</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_track_editor">TrackEditor</string>
 
     <string name="hello_world">Hello world!</string>
+    <string name="renameButton">Rename</string>
+    <string name="newTrackButton">New</string>
+    <string name="editTrackButton">Edit</string>
 </resources>
