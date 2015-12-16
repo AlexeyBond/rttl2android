@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -30,9 +31,9 @@ public class MyTracks extends ActionBarActivity {
 
     private class TrackAdapter extends BaseAdapter {
 
-        List<Track> tracks;
-        LayoutInflater lInflater;
-        Context context;
+        private List<Track> tracks;
+        private LayoutInflater lInflater;
+        private Context context;
 
         public TrackAdapter(Context context, List<Track> tracks) {
             super();
@@ -86,16 +87,15 @@ public class MyTracks extends ActionBarActivity {
 
 
         ListAdapter trackAdapter = new TrackAdapter(this, TrackStorage.getOne().getTracks(0, 10));
-//                new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, TrackStorage.getOne().getTracks(0, 10));
         trackListView = (ListView) findViewById(R.id.trackListView);
 
         trackListView.setAdapter(trackAdapter);
         trackListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                trackListView.requestFocusFromTouch();
                 trackListView.setSelection(position);
-//                selectTrack((Track) ((ListView) findViewById(R.id.trackListView)).getItemAtPosition(position));
-                //changeButtonsState();
+                changeButtonsState();
             }
         });
         changeButtonsState();
@@ -143,7 +143,10 @@ public class MyTracks extends ActionBarActivity {
     }
 
     public void onEditButtonClick(View btn) {
-        Button editButton = (Button) btn;
+        Object selected = trackListView.getSelectedItem();
+        if (selected != null) {
+            Log.d(this.getClass().getName(),selected.toString());
+        }
         Intent intent = new Intent(this, TrackEditor.class);
 //        intent.putExtra("s", selectedTrack);
         startActivity(intent);
