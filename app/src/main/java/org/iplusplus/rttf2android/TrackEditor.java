@@ -1,13 +1,28 @@
 package org.iplusplus.rttf2android;
 
+import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Color;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.text.InputType;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.method.ScrollingMovementMethod;
+import android.text.style.BackgroundColorSpan;
 import android.util.Log;
+import android.view.ActionMode;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+
+import org.iplusplus.rttf2android.editor.EditorDisplay;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -28,6 +43,8 @@ public class TrackEditor extends ActionBarActivity {
             R.id.btn10,
             R.id.btn11,
             R.id.btn12};
+
+    EditorDisplay editorDisplay;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,6 +97,7 @@ public class TrackEditor extends ActionBarActivity {
                 return "E";
             }
         });
+        editorDisplay = new EditorDisplay(this);
     }
 
     @Override

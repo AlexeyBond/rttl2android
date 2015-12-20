@@ -86,8 +86,8 @@ public class Note {
 
     @Override
     public String toString() {
-        /*TODO: Serialize note to string.*/
-        return "";
+        return String.valueOf(octave) + getStringOfOffset(note) +
+                ((lengthNominator == 1)?(String.valueOf(lengthDenominator)):("." + String.valueOf(lengthDenominator/2)));
     }
 
     public int getOffsetFrom(int note, int octave) {

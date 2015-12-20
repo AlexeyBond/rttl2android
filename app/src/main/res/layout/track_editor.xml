@@ -9,17 +9,40 @@
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"></LinearLayout>
-
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <WebView
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/webView" />
+            android:orientation="horizontal">
+            <TextView
+                android:layout_weight="100"
+                android:layout_width="0dp"
+                android:layout_height="200dp"
+                android:textSize="24sp"
+                android:background="#999999"
+                android:scrollbars="vertical"
+                android:inputType="none"
+                android:id="@+id/compositionText">
+            </TextView>
+            <LinearLayout
+                android:layout_width="20dp"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="^"
+                    android:id="@+id/cursorBackButton"/>
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="v"
+                    android:id="@+id/cursorForwardButton"/>
+            </LinearLayout>
+        </LinearLayout>
 
         <TableLayout
             android:layout_width="match_parent"

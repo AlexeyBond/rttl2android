@@ -15,7 +15,8 @@ public class Track extends Observable {
         public boolean forward() {
             if(iterator.hasNext()) {
                 currentNote = iterator.next();
-                this.notifyObservers();
+                Cursor.this.setChanged();
+                Cursor.this.notifyObservers();
                 return true;
             }
 
@@ -25,7 +26,8 @@ public class Track extends Observable {
         public boolean backward() {
             if(iterator.hasPrevious()) {
                 currentNote = iterator.previous();
-                this.notifyObservers();
+                Cursor.this.setChanged();
+                Cursor.this.notifyObservers();
                 return true;
             }
 
@@ -38,7 +40,9 @@ public class Track extends Observable {
 
         public void deleteCurrent() {
             iterator.remove();
-            this.notifyObservers();
+            Cursor.this.setChanged();
+            Cursor.this.notifyObservers();
+            Track.this.setChanged();
             Track.this.notifyObservers();
         }
 
@@ -46,7 +50,9 @@ public class Track extends Observable {
             iterator.add(note);
             iterator.previous();
             currentNote = iterator.next();
-            this.notifyObservers();
+            Cursor.this.setChanged();
+            Cursor.this.notifyObservers();
+            Track.this.setChanged();
             Track.this.notifyObservers();
         }
 

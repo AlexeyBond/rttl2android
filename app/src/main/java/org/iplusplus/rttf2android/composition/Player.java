@@ -60,6 +60,10 @@ public class Player {
         }
     }
 
+    public Track.Cursor getTrackCursor() {
+        return trackCursor;
+    }
+
     private static int NUM_SAMPLE_FRAMES = 64;
 
     private Track.Cursor trackCursor;
