@@ -53,4 +53,11 @@ public class TrackEditor extends ActionBarActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+
+        this.editorDisplay.thePlayer.stop();
+    }
 }

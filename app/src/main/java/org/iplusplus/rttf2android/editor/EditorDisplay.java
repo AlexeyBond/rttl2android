@@ -45,7 +45,7 @@ public class EditorDisplay {
     private View cursorForwardButtonView;
     private Editable theText = new Editable.Factory().newEditable("");
     private Track theTrack;
-    private Player thePlayer = new Player(SampleCreators.SQUARE.get());
+    public Player thePlayer = new Player(SampleCreators.SQUARE.get());
     private Map<Note, NotePosition> notePositionMap;
     private Track.Cursor theEditCursor;
     private boolean diez_enable = false;
