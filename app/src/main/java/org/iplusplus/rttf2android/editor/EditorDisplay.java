@@ -165,12 +165,15 @@ public class EditorDisplay {
     class PlayClickListener implements View.OnClickListener {
         @Override
         public void onClick(View view) {
+            Button playBtn = (Button) view;
             synchronized (thePlayer) {
                 if (thePlayer.isPlaying()) {
                     thePlayer.stop();
+                    playBtn.setText(R.string.play_btn_text);
                 } else {
                     thePlayer.play(theTrack);
                     thePlayer.getTrackCursor().addObserver(cursorObserver);
+                    playBtn.setText(R.string.stop_btn_text);
                 }
             }
         }

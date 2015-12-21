@@ -10,4 +10,6 @@
     <string name="track_list_title">My tracks</string>
     <string name="new_track_btn_text">New track</string>
     <string name="track_editor_title">Track Editor</string>
+    <string name="play_btn_text">▶</string>
+    <string name="stop_btn_text">||</string>
 </resources>
