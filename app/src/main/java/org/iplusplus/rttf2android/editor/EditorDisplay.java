@@ -190,7 +190,13 @@ public class EditorDisplay {
         cursorBackButtonView = editorActivity.findViewById(R.id.cursorBackButton);
         cursorForwardButtonView = editorActivity.findViewById(R.id.cursorForwardButton);
 
-        theTrack = TrackStorage.getOne().getTracks(theEditorActivity.getIntent().getIntExtra("track", 0), 1).get(0);
+        int trackId = theEditorActivity.getIntent().getIntExtra("track", 0);
+        if (trackId < 0) {
+            theTrack = new Track();
+            // TODO: open rename dialog, save to storage
+        } else {
+            theTrack = TrackStorage.getOne().getTracks(trackId, 1).get(0);
+        }
 
         textView.setMovementMethod(new ScrollingMovementMethod());
 

@@ -106,7 +106,10 @@ public class MyTracks extends ActionBarActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.new_track) {
-            // TODO: place new track handler here
+            // TODO: do it normal way
+            Intent intent = new Intent(this, TrackEditor.class);
+            intent.putExtra("track", -1);
+            startActivity(intent);
         }
 
         return super.onOptionsItemSelected(item);
