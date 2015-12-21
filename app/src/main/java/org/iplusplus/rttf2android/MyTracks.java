@@ -73,7 +73,7 @@ public class MyTracks extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.track_list);
 
-        ListAdapter trackAdapter = new TrackAdapter(this, TrackStorage.getOne().getTracks(0, 10));
+        ListAdapter trackAdapter = new TrackAdapter(this, TrackStorage.getOne().getTracks(0, 20));
         trackListView = (ListView) findViewById(R.id.trackListView);
 
         trackListView.setAdapter(trackAdapter);
@@ -85,15 +85,6 @@ public class MyTracks extends ActionBarActivity {
                 onEditButtonClick(position);
             }
         });
-//        {
-//            Button playButton = (Button)findViewById(R.id.playButton);
-//            playButton.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    play();
-//                }
-//            });
-//        }
         toolbar = (Toolbar) findViewById(R.id.track_list_toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(" ");
@@ -115,7 +106,7 @@ public class MyTracks extends ActionBarActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.new_track) {
-            return true;
+            // TODO: place new track handler here
         }
 
         return super.onOptionsItemSelected(item);

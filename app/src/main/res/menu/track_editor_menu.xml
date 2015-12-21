@@ -1,6 +1,15 @@
-<menu
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="org.iplusplus.rttf2android.TrackEditor">
+    <item
+        android:icon="@android:drawable/ic_menu_save"
+        android:id="@+id/save_menu_btn"
+        android:title="save"
+        app:showAsAction="always"/>
+    <item
+        android:icon="@android:drawable/ic_menu_edit"
+        android:id="@+id/rename_menu_btn"
+        android:title="rename"
+        app:showAsAction="always"/>
 </menu>

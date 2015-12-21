@@ -31,6 +31,9 @@ public class TrackEditor extends ActionBarActivity {
             }
         });
         int track_position = (int) getIntent().getSerializableExtra("track");
+
+//        Button backspaceButton = (Button) findViewById(R.id.backspaceButton);
+//        backspaceButton.setBackground(R.drawable.ic_input_delete);
     }
 
     @Override
@@ -46,9 +49,10 @@ public class TrackEditor extends ActionBarActivity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-        Log.d("MENU", "Key_id pressed: " + id);
-        if (id == R.id.home) {
-            finishActivity(42);
+        if(id == R.id.rename_menu_btn){
+            // TODO: place rename handler here
+        } else if(id == R.id.save_menu_btn){
+            // TODO: place save handler here
         }
 
         return super.onOptionsItemSelected(item);
