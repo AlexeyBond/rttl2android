@@ -86,8 +86,11 @@ public class Note {
 
     @Override
     public String toString() {
-        return String.valueOf(octave) + getStringOfOffset(note) +
+        if (!isPause)
+            return String.valueOf(octave) + getStringOfOffset(note) +
                 ((lengthNominator == 1)?(String.valueOf(lengthDenominator)):("." + String.valueOf(lengthDenominator/2)));
+        else
+            return "P" + ((lengthNominator == 1)?(String.valueOf(lengthDenominator)):("." + String.valueOf(lengthDenominator/2)));
     }
 
     public int getOffsetFrom(int note, int octave) {
@@ -143,11 +146,11 @@ public class Note {
     private static int NOTE_PATTERN_OCTAVE_GROUP = 4;
     private static int NOTE_PATTERN_DOTTING_GROUP = 3;
 
-    private static int getOffsetFromString(String string) {
+    public static int getOffsetFromString(String string) {
         return noteStrings.get(string);
     }
 
-    private static String getStringOfOffset(int offset) {
+    public static String getStringOfOffset(int offset) {
         return noteStrings.inverse().get(offset);
     }
 

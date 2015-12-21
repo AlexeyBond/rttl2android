@@ -7,6 +7,7 @@ import android.text.method.ScrollingMovementMethod;
 import android.text.style.BackgroundColorSpan;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import org.iplusplus.rttf2android.R;
@@ -47,6 +48,23 @@ public class EditorDisplay {
     private Player thePlayer = new Player(SampleCreators.SQUARE.get());
     private Map<Note, NotePosition> notePositionMap;
     private Track.Cursor theEditCursor;
+    private boolean diez_enable = false;
+
+    private int statusDurationBase = 4;
+    private boolean statusDurationDot = false;
+    private int statusOctave = 4;
+
+    private Note.Defaults noteDefaults = new Note.Defaults() {
+        @Override
+        public int getDefaultOctave() {
+            return statusOctave;
+        }
+
+        @Override
+        public int getDefaultDurationDenominator() {
+            return statusDurationBase;
+        }
+    };
 
     private Observer cursorObserver = new Observer() {
         @Override
@@ -73,22 +91,29 @@ public class EditorDisplay {
     };
 
     class NoteButtonOnClickListener implements View.OnClickListener {
-        String name, baseName;
-
-        NoteButtonOnClickListener(String baseName) {
-            this.baseName = baseName;
-            this.name = baseName;
-        }
-
         @Override
         public void onClick(View view) {
             synchronized (thePlayer) {
                 if (!thePlayer.isPlaying()) {
-                    theEditCursor.insertAtLeft(Note.fromString(name, Note.defaultDefaults));
+                    theEditCursor.insertAtLeft(Note.fromString(
+                            ((Button)view).getText().toString() + (statusDurationDot?".":""),
+                            noteDefaults));
                     rebuildText();
                     rebuildCursors();
                 }
             }
+        }
+    }
+
+    class TempoClickListener implements View.OnClickListener {
+        @Override
+        public void onClick(View view) {
+            int t = theTrack.getTempo();
+            t += 20;
+            if (t > 400)
+                t = 60;
+            theTrack.setTempo(t);
+            setupButtonLabels();
         }
     }
 
@@ -100,11 +125,40 @@ public class EditorDisplay {
                     try {
                         theEditCursor.deleteCurrent();
                         theEditCursor.backward();//ХЗ как оно работает
+                        theEditCursor.forward();
                     } catch (Throwable ignoreFuckingErrors) {}
                     rebuildText();
                     rebuildCursors();
                 }
             }
+        }
+    }
+
+    class DiezControlListener implements View.OnClickListener {
+        @Override
+        public void onClick(View view) {
+            diez_enable = !diez_enable;
+            setupButtonLabels();
+        }
+    }
+
+    class DurationClickListener implements View.OnClickListener {
+        @Override
+        public void onClick(View view) {
+            statusDurationBase *= 2;
+            if(statusDurationBase > 32)
+                statusDurationBase = 1;
+            setupButtonLabels();
+        }
+    }
+
+    class OctaveClickListener implements View.OnClickListener {
+        @Override
+        public void onClick(View view) {
+            statusOctave++;
+            if (statusOctave > 8)
+                statusOctave = 2;
+            setupButtonLabels();
         }
     }
 
@@ -119,6 +173,14 @@ public class EditorDisplay {
                     thePlayer.getTrackCursor().addObserver(cursorObserver);
                 }
             }
+        }
+    }
+
+    class DotControlListener implements View.OnClickListener {
+        @Override
+        public void onClick(View view) {
+            statusDurationDot = !statusDurationDot;
+            setupButtonLabels();
         }
     }
 
@@ -149,11 +211,43 @@ public class EditorDisplay {
         for (int i = 0; i < NOTE_CONTROL_IDS.length; ++i) {
             theEditorActivity
                     .findViewById(NOTE_CONTROL_IDS[i])
-                    .setOnClickListener(new NoteButtonOnClickListener(NOTE_BASE_NAMES[i]));
+                    .setOnClickListener(new NoteButtonOnClickListener());
         }
 
         theEditorActivity.findViewById(PLAY_CONTROL_ID).setOnClickListener(new PlayClickListener());
         theEditorActivity.findViewById(BACKSPACE_CONTROL_ID).setOnClickListener(new BackspaceListener());
+        theEditorActivity.findViewById(DIEZ_CONTROL_ID).setOnClickListener(new DiezControlListener());
+        theEditorActivity.findViewById(DOT_CONTROL_ID).setOnClickListener(new DotControlListener());
+        theEditorActivity.findViewById(TEMPO_CONTROL_ID).setOnClickListener(new TempoClickListener());
+        theEditorActivity.findViewById(OCTAVE_CONTROL_ID).setOnClickListener(new OctaveClickListener());
+        theEditorActivity.findViewById(DURATION_CONTROL_ID).setOnClickListener(new DurationClickListener());
+
+        setupButtonLabels();
+    }
+
+    void setupButtonLabels() {
+        for (int i = 0; i < NOTE_CONTROL_IDS.length; ++i) {
+            String t = NOTE_BASE_NAMES[i] + (diez_enable?"#":"");
+            try {
+                Note.getOffsetFromString(t);
+            } catch (Throwable e) {
+                t = "P";
+            }
+            ((Button) theEditorActivity.findViewById(NOTE_CONTROL_IDS[i])).setText(t);
+        }
+
+        ((Button) theEditorActivity.findViewById(DIEZ_CONTROL_ID)).setText("#");
+        ((Button) theEditorActivity.findViewById(DOT_CONTROL_ID)).setText(".");
+        ((Button) theEditorActivity.findViewById(TEMPO_CONTROL_ID)).setText("T: " + String.valueOf(theTrack.getTempo()));
+        ((Button) theEditorActivity.findViewById(OCTAVE_CONTROL_ID)).setText("O: " + String.valueOf(statusOctave));
+        ((Button) theEditorActivity.findViewById(DURATION_CONTROL_ID)).setText("D: " + String.valueOf(statusDurationBase));
+
+        ((TextView) theEditorActivity.findViewById(R.id.statusText))
+                .setText("NOTE: " + String.valueOf(statusOctave) + "X" +
+                        (statusDurationDot ? "." : "") + String.valueOf(statusDurationBase));
+
+        ((TextView) theEditorActivity.findViewById(R.id.tempoText))
+                .setText("TEMPO: " + String.valueOf(theTrack.getTempo()));
     }
 
     private void cursorBack() {
