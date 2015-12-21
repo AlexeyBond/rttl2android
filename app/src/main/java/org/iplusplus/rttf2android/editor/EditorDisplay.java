@@ -242,12 +242,12 @@ public class EditorDisplay {
         ((Button) theEditorActivity.findViewById(OCTAVE_CONTROL_ID)).setText("O: " + String.valueOf(statusOctave));
         ((Button) theEditorActivity.findViewById(DURATION_CONTROL_ID)).setText("D: " + String.valueOf(statusDurationBase));
 
-        ((TextView) theEditorActivity.findViewById(R.id.statusText))
-                .setText("NOTE: " + String.valueOf(statusOctave) + "X" +
+        ((TextView) theEditorActivity.findViewById(R.id.note_value))
+                .setText( String.valueOf(statusOctave) + "X" +
                         (statusDurationDot ? "." : "") + String.valueOf(statusDurationBase));
 
-        ((TextView) theEditorActivity.findViewById(R.id.tempoText))
-                .setText("TEMPO: " + String.valueOf(theTrack.getTempo()));
+        ((TextView) theEditorActivity.findViewById(R.id.temp_value))
+                .setText(String.valueOf(theTrack.getTempo()));
     }
 
     private void cursorBack() {
