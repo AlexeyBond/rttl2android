@@ -6,17 +6,31 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import org.iplusplus.rttf2android.editor.EditorDisplay;
 
 public class TrackEditor extends ActionBarActivity {
     EditorDisplay editorDisplay;
 
+    Toolbar toolbar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.track_editor);
         editorDisplay = new EditorDisplay(this);
+        toolbar = (Toolbar) findViewById(R.id.track_editor_toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle(" ");
+        toolbar.setNavigationIcon(R.drawable.abc_ic_ab_back_mtrl_am_alpha);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+        int track_position = (int) getIntent().getSerializableExtra("track");
     }
 
     @Override
@@ -33,7 +47,7 @@ public class TrackEditor extends ActionBarActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
         Log.d("MENU", "Key_id pressed: " + id);
-        if(id == R.id.home){
+        if (id == R.id.home) {
             finishActivity(42);
         }
 
