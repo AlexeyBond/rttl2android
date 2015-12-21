@@ -44,7 +44,7 @@ public class EditorDisplay {
     private View cursorBackButtonView;
     private View cursorForwardButtonView;
     private Editable theText = new Editable.Factory().newEditable("");
-    private Track theTrack = TrackStorage.getOne().getTracks(0,3).get(2); // TODO: Get a required track
+    private Track theTrack;
     private Player thePlayer = new Player(SampleCreators.SQUARE.get());
     private Map<Note, NotePosition> notePositionMap;
     private Track.Cursor theEditCursor;
@@ -189,6 +189,8 @@ public class EditorDisplay {
         textView = (TextView)editorActivity.findViewById(R.id.compositionText);
         cursorBackButtonView = editorActivity.findViewById(R.id.cursorBackButton);
         cursorForwardButtonView = editorActivity.findViewById(R.id.cursorForwardButton);
+
+        theTrack = TrackStorage.getOne().getTracks(theEditorActivity.getIntent().getIntExtra("track", 0), 1).get(0);
 
         textView.setMovementMethod(new ScrollingMovementMethod());
 
