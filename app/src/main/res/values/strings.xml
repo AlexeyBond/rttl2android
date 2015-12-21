@@ -12,4 +12,6 @@
     <string name="track_editor_title">Track Editor</string>
     <string name="play_btn_text">▶</string>
     <string name="stop_btn_text">||</string>
+    <string name="ok">OK</string>
+    <string name="rename_dialog_title">Rename the track</string>
 </resources>
