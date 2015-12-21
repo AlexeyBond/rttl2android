@@ -1,9 +1,6 @@
-<menu xmlns:android="http://schemas.android.com/apk/res/android"
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="org.iplusplus.rttf2android.TrackEditor">
-    <item
-        android:icon="@android:drawable/ic_menu_add"
-        android:title="@string/new_track_btn_text"
-        app:showAsAction="ifRoom"/>
 </menu>

@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/trackListView"
-        android:layout_alignParentBottom="true"
-        android:choiceMode="singleChoice" />
+        android:choiceMode="singleChoice"
+        android:layout_margin="10dp" />
 
 </LinearLayout>

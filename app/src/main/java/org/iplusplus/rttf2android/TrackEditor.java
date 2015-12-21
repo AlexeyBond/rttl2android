@@ -2,6 +2,7 @@ package org.iplusplus.rttf2android;
 
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -27,10 +28,32 @@ public class TrackEditor extends ActionBarActivity {
             R.id.btn11,
             R.id.btn12};
 
+    Toolbar toolbar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.track_editor);
+
+        setDefaultNoteControls();
+
+        toolbar = (Toolbar) findViewById(R.id.track_editor_toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle(" ");
+        toolbar.setNavigationIcon(R.drawable.abc_ic_ab_back_mtrl_am_alpha);
+        //getSupportActionBar().setDisplayShowHomeEnabled(true);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
+        int track_position = (int) getIntent().getSerializableExtra("track");
+
+    }
+
+    private void setDefaultNoteControls() {
         for (int i = 0; i < buttonsIDs.length; i++) {
             NoteControl nc = new NoteControl(buttonsIDs[i]);
             findViewById(buttonsIDs[i]).setOnClickListener(new View.OnClickListener() {
@@ -93,6 +116,10 @@ public class TrackEditor extends ActionBarActivity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
+        Log.d("MENU", "Key_id pressed: " + id);
+        if(id == R.id.home){
+            finishActivity(42);
+        }
 
         return super.onOptionsItemSelected(item);
     }
