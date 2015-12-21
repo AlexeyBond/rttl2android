@@ -9,10 +9,10 @@
     <include layout="@layout/track_editor_toolbar"/>
 
     <LinearLayout
-        android:layout_margin="10dp"
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/eva_background">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -33,11 +33,11 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical">
                 <Button
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:text="^"
-                    android:id="@+id/cursorBackButton"/>
+                    android:text="\u2190"
+                    android:id="@+id/cursorBackButton" />
                 <Button
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -47,37 +47,6 @@
             </LinearLayout>
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="80dp">
-            <LinearLayout
-                android:layout_width="100dp"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"
-                    android:id="@+id/statusText"
-                    android:text="STATUS"/>
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"
-                    android:id="@+id/tempoText"
-                    android:text="TEMPO"/>
-            </LinearLayout>
-            <Button
-                android:layout_width="80dp"
-                android:layout_height="match_parent"
-                android:id="@+id/playButton"/>
-
-            <Button
-                android:layout_width="30dp"
-                android:layout_height="match_parent"
-                android:id="@+id/backspaceButton"/>
-        </LinearLayout>
-
         <TableLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -85,122 +54,177 @@
             <TableRow
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:orientation="vertical"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="5dp">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="TEMP: " />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="321"
+                            android:id="@+id/temp_value"/>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="STAT: " />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="123"
+                            android:id="@+id/stat_value"/>
+                    </LinearLayout>
+                </LinearLayout>
+                <FrameLayout
+                    android:layout_column="1"
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center">
+                    <Button
+                        android:id="@+id/playButton"
+                        android:background="@drawable/round_button"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:text="\u25B6"
+                        android:textSize="30dp"
+                        android:paddingLeft="5dp"
+                        android:paddingBottom="5dp"
+                        android:textColor="@color/eva_btn"
+                        android:layout_gravity="center"/>
+                </FrameLayout>
 
                 <Button
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="New Button"
+                    android:layout_height="match_parent"
+                    android:id="@+id/backspaceButton"
+                    android:text="\u232b"
+                    android:textSize="40sp"
+                    android:layout_column="2"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:layout_marginRight="5dp"/>
+
+            </TableRow>
+            <!--gray line-->
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:background="@android:color/darker_gray"/>
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:weightSum="3">
+                <Button
                     android:id="@+id/btn1"
                     android:layout_column="0"
-                    android:layout_weight="1" />
+                    android:layout_weight="1"
+                    style="@style/GayButton_IHATEDIS"/>
 
                 <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="New Button"
                     android:id="@+id/btn2"
                     android:layout_column="1"
-                    android:layout_weight="1" />
+                    android:layout_weight="1"
+                    style="@style/GayButton_IHATEDIS"/>
 
                 <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="New Button"
                     android:id="@+id/btn3"
                     android:layout_column="2"
-                    android:layout_weight="1" />
+                    android:layout_weight="1"
+                    style="@style/GayButton_IHATEDIS"/>
 
             </TableRow>
 
             <TableRow
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1">
+                android:layout_height="wrap_content"
+                android:weightSum="3">
 
                 <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="New Button"
                     android:id="@+id/btn4"
                     android:layout_column="0"
-                    android:layout_weight="1" />
+                    android:layout_weight="1"
+                    style="@style/GayButton_IHATEDIS"/>
 
                 <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="New Button"
                     android:id="@+id/btn5"
                     android:layout_column="1"
-                    android:layout_weight="1" />
+                    android:layout_weight="1"
+                    style="@style/GayButton_IHATEDIS"/>
 
                 <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="New Button"
                     android:id="@+id/btn6"
                     android:layout_column="2"
-                    android:layout_weight="1" />
+                    android:layout_weight="1"
+                    style="@style/GayButton_IHATEDIS"/>
             </TableRow>
 
             <TableRow
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="wrap_content"
+                android:weightSum="3">
 
                 <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="New Button"
                     android:id="@+id/btn7"
                     android:layout_column="0"
-                    android:layout_weight="1" />
+                    android:layout_weight="1"
+                    style="@style/GuyButton_NORMALNIYPAREN"/>
 
                 <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="New Button"
                     android:id="@+id/btn8"
                     android:layout_column="1"
-                    android:layout_weight="1" />
+                    android:layout_weight="1"
+                    style="@style/GayButton_IHATEDIS"/>
 
                 <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="New Button"
                     android:id="@+id/btn9"
                     android:layout_column="2"
-                    android:layout_weight="1" />
+                    android:layout_weight="1"
+                    style="@style/GuyButton_NORMALNIYPAREN"/>
             </TableRow>
 
             <TableRow
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="wrap_content"
+                android:weightSum="3">
 
                 <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="New Button"
                     android:id="@+id/btn10"
                     android:layout_column="0"
-                    android:layout_weight="1" />
+                    android:layout_weight="1"
+                    style="@style/GuyButton_NORMALNIYPAREN"/>
 
                 <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="New Button"
                     android:id="@+id/btn11"
                     android:layout_column="1"
-                    android:layout_weight="1" />
+                    android:layout_weight="1"
+                    style="@style/GuyButton_NORMALNIYPAREN"/>
 
                 <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="New Button"
                     android:id="@+id/btn12"
                     android:layout_column="2"
-                    android:layout_weight="1" />
+                    android:layout_weight="1"
+                    style="@style/GuyButton_NORMALNIYPAREN"/>
             </TableRow>
         </TableLayout>
-
     </LinearLayout>
 
 </LinearLayout>
