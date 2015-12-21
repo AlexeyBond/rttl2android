@@ -2,6 +2,8 @@ package org.iplusplus.rttf2android;
 
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -30,6 +32,10 @@ public class TrackEditor extends ActionBarActivity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
+        Log.d("MENU", "Key_id pressed: " + id);
+        if(id == R.id.home){
+            finishActivity(42);
+        }
 
         return super.onOptionsItemSelected(item);
     }

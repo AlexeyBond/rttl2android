@@ -2,12 +2,13 @@ package org.iplusplus.rttf2android.composition;
 
 import android.support.annotation.NonNull;
 
+import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Observable;
 
-public class Track extends Observable {
+public class Track extends Observable implements Serializable {
     public class Cursor extends Observable {
         private ListIterator<Note> iterator;
         private Note currentNote;
