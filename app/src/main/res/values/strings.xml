@@ -7,4 +7,7 @@
     <string name="renameButton">Rename</string>
     <string name="newTrackButton">New</string>
     <string name="editTrackButton">Edit</string>
+    <string name="track_list_title">My tracks</string>
+    <string name="new_track_btn_text">New track</string>
+    <string name="track_editor_title">Track Editor</string>
 </resources>
