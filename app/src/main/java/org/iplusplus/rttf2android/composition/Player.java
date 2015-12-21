@@ -15,6 +15,7 @@ public class Player {
 
     private void stopSound() {
         sampleTrack.stop();
+        this.isPlaying = false;
     }
 
     static double sqrt2_12 = Math.pow(2.0, 1.0 / 12.0);
@@ -35,18 +36,25 @@ public class Player {
         }
     }
 
-    public void play(Track track) {
-        /*TODO: Get sure we are not playing now?*/
+    public synchronized void play(Track track) {
+        if (this.isPlaying()) {
+            throw new IllegalStateException("already playing");
+        }
         this.track = track;
         this.trackCursor = track.openCursor();
+        this.isPlaying = true;
 
         timer.schedule(new NoteSetupTask(), 0);
+    }
+
+    public synchronized void stop() {
+        stopSound();
     }
 
     private class NoteSetupTask extends TimerTask {
         @Override
         public void run() {
-            if(trackCursor.forward()) {
+            if(trackCursor.forward() && isPlaying) {
                 Note note = trackCursor.current();
 
                 setupSampleToNote(note);
@@ -64,6 +72,8 @@ public class Player {
         return trackCursor;
     }
 
+    public boolean isPlaying() {return isPlaying;}
+
     private static int NUM_SAMPLE_FRAMES = 64;
 
     private Track.Cursor trackCursor;
@@ -71,4 +81,5 @@ public class Player {
     private Track track = null;
     private AudioTrack sampleTrack;
     private SampleCreator sampleCreator;
+    private boolean isPlaying = false;
 }
