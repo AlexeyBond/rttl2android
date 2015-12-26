@@ -31,7 +31,9 @@ public class SQLiteStorage extends TrackStorage {
             public void onCreate(SQLiteDatabase db) {
                 db.beginTransaction();
                 try {
-                    db.execSQL(activity.getString(R.string.db_init_v1));
+                    String s = activity.getString(R.string.db_init_v1);
+                    for (String q : s.split(";"))
+                        db.execSQL(q+";");
                     db.setTransactionSuccessful();
                 } finally {
                     db.endTransaction();
