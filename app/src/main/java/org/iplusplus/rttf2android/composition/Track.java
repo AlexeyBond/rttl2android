@@ -3,6 +3,7 @@ package org.iplusplus.rttf2android.composition;
 import android.support.annotation.NonNull;
 
 import java.io.Serializable;
+import java.io.StringWriter;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
@@ -96,4 +97,22 @@ public class Track extends Observable implements Serializable {
     private List<Note> notes = new LinkedList<>();
     private int tempo = 20;
     private String name;
+
+    @Override
+    public String toString() {
+        StringWriter sw = new StringWriter();
+
+        sw.append(String.format("%s: d=%d,o=%d,b=%d:", getName(), 16, 4, getTempo()));
+
+        Track.Cursor c = openCursor();
+        boolean t = false;
+
+        while (c.forward()) {
+            if (t) sw.append(", ");
+            sw.append(c.current().toString());
+            t = true;
+        }
+
+        return sw.toString();
+    }
 }

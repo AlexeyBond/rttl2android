@@ -52,7 +52,7 @@ public class TrackEditor extends ActionBarActivity {
         if(id == R.id.rename_menu_btn){
             // TODO: place rename handler here
         } else if(id == R.id.save_menu_btn){
-            // TODO: place save handler here
+            editorDisplay.save();
         }
 
         return super.onOptionsItemSelected(item);

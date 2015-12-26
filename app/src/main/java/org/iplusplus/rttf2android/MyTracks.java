@@ -73,7 +73,7 @@ public class MyTracks extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.track_list);
 
-        ListAdapter trackAdapter = new TrackAdapter(this, TrackStorage.getOne().getTracks(0, 20));
+        ListAdapter trackAdapter = new TrackAdapter(this, TrackStorage.getOne(this).getTracks(0, 20));
         trackListView = (ListView) findViewById(R.id.trackListView);
 
         trackListView.setAdapter(trackAdapter);
@@ -116,7 +116,7 @@ public class MyTracks extends ActionBarActivity {
     }
 
     private void play() {
-        List<Track> tracks = TrackStorage.getOne().getTracks(0, 10);
+        List<Track> tracks = TrackStorage.getOne(this).getTracks(0, 10);
 
         Track track = tracks.get(0);
 

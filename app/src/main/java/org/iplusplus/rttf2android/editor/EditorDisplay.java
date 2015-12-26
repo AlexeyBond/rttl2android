@@ -40,6 +40,7 @@ public class EditorDisplay {
     private static int PLAY_CONTROL_ID = R.id.playButton;
 
     private TrackEditor theEditorActivity;
+    private TrackStorage trackStorage;
     private TextView textView;
     private View cursorBackButtonView;
     private View cursorForwardButtonView;
@@ -193,12 +194,15 @@ public class EditorDisplay {
         cursorBackButtonView = editorActivity.findViewById(R.id.cursorBackButton);
         cursorForwardButtonView = editorActivity.findViewById(R.id.cursorForwardButton);
 
+        trackStorage = TrackStorage.getOne(theEditorActivity);
+
         int trackId = theEditorActivity.getIntent().getIntExtra("track", 0);
         if (trackId < 0) {
             theTrack = new Track();
+            theTrack.setName("New track");
             // TODO: open rename dialog, save to storage
         } else {
-            theTrack = TrackStorage.getOne().getTracks(trackId, 1).get(0);
+            theTrack = trackStorage.getTracks(trackId, 1).get(0);
         }
 
         textView.setMovementMethod(new ScrollingMovementMethod());
@@ -311,5 +315,9 @@ public class EditorDisplay {
         Log.d("ED", "cursor rebuild end.");
 
         textView.setText(theText);
+    }
+
+    public void save() {
+        trackStorage.saveTrack(theTrack);
     }
 }
