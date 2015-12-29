@@ -67,15 +67,16 @@ public class MyTracks extends ActionBarActivity {
 
     ListView trackListView;
     Toolbar toolbar;
+    BaseAdapter trackAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.track_list);
 
-        ListAdapter trackAdapter = new TrackAdapter(this, TrackStorage.getOne(this).getTracks(0, 20));
         trackListView = (ListView) findViewById(R.id.trackListView);
 
+        trackAdapter = new TrackAdapter(this, TrackStorage.getOne(this).getTracks(0, 20));
         trackListView.setAdapter(trackAdapter);
         trackListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -90,6 +91,16 @@ public class MyTracks extends ActionBarActivity {
         getSupportActionBar().setTitle(" ");
     }
 
+    @Override
+    protected void onStart() {
+        setTrackAdapterToListView();
+        super.onStart();
+    }
+
+    private void setTrackAdapterToListView(){
+        trackAdapter = new TrackAdapter(this, TrackStorage.getOne(this).getTracks(0, 20));
+        trackListView.setAdapter(trackAdapter);
+    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
