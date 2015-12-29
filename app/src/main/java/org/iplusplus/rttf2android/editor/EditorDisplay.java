@@ -320,4 +320,7 @@ public class EditorDisplay {
     public void save() {
         trackStorage.saveTrack(theTrack);
     }
+    public Track getTheTrack(){
+        return theTrack;
+    }
 }

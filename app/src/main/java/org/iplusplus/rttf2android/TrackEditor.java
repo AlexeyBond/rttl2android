@@ -1,5 +1,8 @@
 package org.iplusplus.rttf2android;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -7,6 +10,9 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.LinearLayout;
 
 import org.iplusplus.rttf2android.editor.EditorDisplay;
 
@@ -50,7 +56,30 @@ public class TrackEditor extends ActionBarActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
         if(id == R.id.rename_menu_btn){
-            // TODO: place rename handler here
+            AlertDialog alertDialog = new AlertDialog.Builder(this).create();
+            alertDialog.setTitle("Rename track");
+            final EditText input = new EditText(this);
+            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.MATCH_PARENT,
+                    LinearLayout.LayoutParams.MATCH_PARENT);
+            input.setLayoutParams(lp);
+            alertDialog.setView(input);
+            alertDialog.setMessage("Current name: " + editorDisplay.getTheTrack().getName());
+            alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "Cancel",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    });
+            alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "OK",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            editorDisplay.getTheTrack().setName(input.getText().toString());
+                            editorDisplay.save();
+                            dialog.dismiss();
+                        }
+                    });
+            alertDialog.show();
         } else if(id == R.id.save_menu_btn){
             editorDisplay.save();
         }
