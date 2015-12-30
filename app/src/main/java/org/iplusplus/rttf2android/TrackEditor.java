@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import org.iplusplus.rttf2android.editor.EditorDisplay;
 
@@ -62,9 +63,10 @@ public class TrackEditor extends ActionBarActivity {
             LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
                     LinearLayout.LayoutParams.MATCH_PARENT,
                     LinearLayout.LayoutParams.MATCH_PARENT);
+            input.setText(editorDisplay.getTheTrack().getName());
             input.setLayoutParams(lp);
             alertDialog.setView(input);
-            alertDialog.setMessage("Current name: " + editorDisplay.getTheTrack().getName());
+//            alertDialog.setMessage("Current name: " + editorDisplay.getTheTrack().getName());
             alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "Cancel",
                     new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
@@ -74,9 +76,13 @@ public class TrackEditor extends ActionBarActivity {
             alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "OK",
                     new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
-                            editorDisplay.getTheTrack().setName(input.getText().toString());
-                            editorDisplay.save();
-                            dialog.dismiss();
+                            try {
+                                editorDisplay.getTheTrack().setName(input.getText().toString());
+                                editorDisplay.save();
+                                dialog.dismiss();
+                            } catch (IllegalArgumentException e) {
+                                Toast.makeText(TrackEditor.this, e.getMessage(), Toast.LENGTH_LONG).show();
+                            }
                         }
                     });
             alertDialog.show();

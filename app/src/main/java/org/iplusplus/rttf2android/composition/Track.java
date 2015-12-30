@@ -89,6 +89,11 @@ public class Track extends Observable implements Serializable {
         if ("".equals(name)) {
             throw new IllegalArgumentException("Track name cannot be empty");
         }
+
+        if (name.contains(":")) {
+            throw new IllegalArgumentException("Track name cannot contain colons");
+        }
+
         if (!name.equals(this.name)) {
             this.name = name;
             this.notifyObservers();
