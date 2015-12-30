@@ -16,6 +16,13 @@ public class Player {
     private void stopSound() {
         sampleTrack.stop();
         this.isPlaying = false;
+        raiseOnStopEvent();
+    }
+
+    private void raiseOnStopEvent(){
+        if (eventListener != null) {
+            eventListener.call();
+        }
     }
 
     static double sqrt2_12 = Math.pow(2.0, 1.0 / 12.0);
@@ -74,6 +81,10 @@ public class Player {
 
     public boolean isPlaying() {return isPlaying;}
 
+    public void setStopEventListener(ICallback callback){
+        eventListener = callback;
+    }
+
     private static int NUM_SAMPLE_FRAMES = 64;
 
     private Track.Cursor trackCursor;
@@ -82,4 +93,5 @@ public class Player {
     private AudioTrack sampleTrack;
     private SampleCreator sampleCreator;
     private boolean isPlaying = false;
+    private ICallback eventListener;
 }

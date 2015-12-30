@@ -44,6 +44,12 @@ public class TrackEditor extends ActionBarActivity {
     }
 
     @Override
+    protected void onStart() {
+        editorDisplay.updatePlayButtonText();
+        super.onStart();
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.track_editor_menu, menu);

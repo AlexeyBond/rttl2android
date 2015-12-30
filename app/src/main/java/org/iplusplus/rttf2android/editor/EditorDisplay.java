@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import org.iplusplus.rttf2android.R;
 import org.iplusplus.rttf2android.TrackEditor;
+import org.iplusplus.rttf2android.composition.ICallback;
 import org.iplusplus.rttf2android.composition.Note;
 import org.iplusplus.rttf2android.composition.Player;
 import org.iplusplus.rttf2android.composition.Track;
@@ -200,7 +201,6 @@ public class EditorDisplay {
         if (trackId < 0) {
             theTrack = new Track();
             theTrack.setName("New track");
-            // TODO: open rename dialog, save to storage
         } else {
             theTrack = trackStorage.getTracks(trackId, 1).get(0);
         }
@@ -218,7 +218,17 @@ public class EditorDisplay {
 
         theEditCursor = theTrack.openCursor();
         theEditCursor.addObserver(cursorObserver);
-
+        thePlayer.setStopEventListener(new ICallback() {
+            @Override
+            public void call() {
+                theEditorActivity.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        updatePlayButtonText();
+                    }
+                });
+            }
+        });
         thePlayer.play(theTrack);
         rebuildText();
         rebuildCursors();
@@ -322,5 +332,16 @@ public class EditorDisplay {
     }
     public Track getTheTrack(){
         return theTrack;
+    }
+
+    public void updatePlayButtonText(){
+        Button playBtn = (Button) theEditorActivity.findViewById(R.id.playButton);
+        synchronized (thePlayer) {
+            if (thePlayer.isPlaying()) {
+                playBtn.setText(R.string.stop_btn_text);
+            } else {
+                playBtn.setText(R.string.play_btn_text);
+            }
+        }
     }
 }
