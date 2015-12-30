@@ -86,6 +86,9 @@ public class Track extends Observable implements Serializable {
     }
 
     public void setName(@NonNull String name) {
+        if ("".equals(name)) {
+            throw new IllegalArgumentException("Track name cannot be empty");
+        }
         if (!name.equals(this.name)) {
             this.name = name;
             this.notifyObservers();

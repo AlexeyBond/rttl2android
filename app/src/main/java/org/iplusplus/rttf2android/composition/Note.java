@@ -86,11 +86,19 @@ public class Note {
 
     @Override
     public String toString() {
+        StringBuffer sb = new StringBuffer();
+        sb.append((lengthNominator == 1)?(String.valueOf(lengthDenominator)):(String.valueOf(lengthDenominator/2)));
         if (!isPause)
-            return String.valueOf(octave) + getStringOfOffset(note) +
-                ((lengthNominator == 1)?(String.valueOf(lengthDenominator)):("." + String.valueOf(lengthDenominator/2)));
+            sb.append(getStringOfOffset(note));
         else
-            return "P" + ((lengthNominator == 1)?(String.valueOf(lengthDenominator)):("." + String.valueOf(lengthDenominator/2)));
+            sb.append("P");
+
+        if (lengthNominator != 1)
+            sb.append(".");
+
+        sb.append(octave);
+
+        return sb.toString();
     }
 
     public int getOffsetFrom(int note, int octave) {
